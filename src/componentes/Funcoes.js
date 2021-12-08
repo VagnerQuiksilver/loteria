@@ -195,7 +195,6 @@ export function concursoIguais(setApostasSelecionadas,apo,numConc,setLoading){
     if(selecionados){
         setApostasSelecionadas(selecionados)
     }
-    console.log(selecionados.length)
     //setTimeout(()=>{setLoading(false)},500)
     setLoading(false)
 }

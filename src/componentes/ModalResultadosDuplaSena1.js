@@ -37,7 +37,7 @@ export default function ModalResultadosDuplaSena1(props){
                             <AntDesign name="arrowleft" size={24} color="#fff" />
                         </TouchableOpacity>
 
-                        <Text style={[Estilos.txtBtnConcursosDupla,{fontWeight:"bold",fontSize:24,color:"#fff"}]}>Dupla Sena concurso 01</Text>
+                        <Text style={[Estilos.txtBtnConcursosDupla,{fontWeight:"bold",fontSize:24,color:"#fff"}]}>Sorteio 01</Text>
                     </View>
 
                     {props.dezena.acumulou &&                      

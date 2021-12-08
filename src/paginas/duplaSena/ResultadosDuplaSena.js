@@ -6,7 +6,7 @@ import ModalSpinner from '../../componentes/ModalSpinner'
 import Estilos from '../../estilos/Estilos'
 import ModalResultadoDS1 from '../../componentes/ModalResultadosDuplaSena1'
 import ModalResultadoDS2 from '../../componentes/ModalResultadosDuplaSena2'
-import { Foundation } from '@expo/vector-icons'; 
+import { Foundation,MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 export default function ResultadosDuplaSena(props){
 
@@ -62,18 +62,32 @@ export default function ResultadosDuplaSena(props){
  
             <View style={Estilos.conteinerBtnConcursosDupla}>
                 <TouchableOpacity 
-                    style={Estilos.btnConcursosDupla}
+                    style={Estilos.btnChamadaApostas}
                     onPress={()=>setModalResult1(true)}
                 >
-                    <Foundation name="dollar" size={24} color="black" />
+                    <View style={Estilos.conteinerIcons}>
+                        <View style={Estilos.icons}>
+                            <MaterialCommunityIcons name="clover" size={35} color="#fff" />
+                        </View>
+                        <View style={Estilos.icons}>
+                            <Foundation name="dollar" size={25} color="#844" />
+                        </View>
+                    </View>
                     <Text style={Estilos.txtBtnConcursosDupla}>Concurso {dezena.numero_concurso} sorteio 1</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    style={Estilos.btnConcursosDupla}
+                    style={Estilos.btnChamadaApostas}
                     onPress={()=>setModalResult2(true)}
                 >
-                    <Foundation name="dollar" size={24} color="black" />
+                    <View style={Estilos.conteinerIcons}>
+                        <View style={Estilos.icons}>
+                            <MaterialCommunityIcons name="clover" size={35} color="#fff" />
+                        </View>
+                        <View style={Estilos.icons}>
+                            <Foundation name="dollar" size={25} color="#844" />
+                        </View>
+                    </View>
                     <Text style={Estilos.txtBtnConcursosDupla}>Concurso {dezena.numero_concurso} sorteio 2</Text>
                 </TouchableOpacity>
             </View>       

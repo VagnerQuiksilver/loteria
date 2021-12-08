@@ -134,10 +134,36 @@ export default StyleSheet.create({
         borderRadius:5,
         alignItems:"center",
         justifyContent:"center",
+        flexDirection:"row",
+    },
+    btnChamadaApostas:{
+        width:"100%",
+        padding:5,
+        alignItems:"center",
+        justifyContent:"flex-start",
+        flexDirection:"row",
+        position:"relative",
+        marginVertical:5
+    },
+    conteinerIcons:{
+        width:50,
+        height:50,
+        backgroundColor:"#844",
+        borderRadius:35,
+        alignItems:"center",
+        justifyContent:"center",        
+    },
+    icons:{
+        position:"absolute",
+        width:"100%",
+        height:"100%",
+        justifyContent:"center",
+        alignItems:"center",
     },
     txtBtnConcursosDupla:{
-        color:"#fff",
-        fontSize:20
+        color:"#000",
+        fontSize:25,
+        marginHorizontal:10,
     },
     //Arquivos ModalResultadosDuplaSena1 e ModalResultadosDuplaSena2
     conteinerGeralResultados:{

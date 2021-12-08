@@ -38,7 +38,7 @@ export default function ModalResultadosDuplaSena2(props){
                             
                         </TouchableOpacity>
 
-                        <Text style={[Estilos.txtBtnConcursosDupla,{fontWeight:"bold",fontSize:24}]}>Dupla sena concurso 02</Text>
+                        <Text style={[Estilos.txtBtnConcursosDupla,{fontWeight:"bold",fontSize:24,color:"#fff"}]}>Dupla Sena concurso 02</Text>
 
                     </View>
 

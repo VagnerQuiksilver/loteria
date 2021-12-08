@@ -4,6 +4,6 @@ Gostaria de deixar aqui meus sinceros agradecimentos ao canal CFBCURSOS  (profes
 
 Embora saiba que ainda tenho um longo caminho a percorrer na área do desenvolvimento hoje me sinto realizado com minhas conquistas nesse maravilhoso mundo da programação. 
 
-Mais uma vez muito obrigado a todos os professores que disponibilizam conteúdos de muita qualidade na internet possibilitando que pessoas como eu tenham acesso a informações de muita qualidade.
+Mais uma vez muito obrigado a todos os professores que disponibilizam conteúdos de muita qualidade na internet possibilitando que pessoas como eu tenham acesso a informações  de muita qualidade.
 
 Obrigado !!!

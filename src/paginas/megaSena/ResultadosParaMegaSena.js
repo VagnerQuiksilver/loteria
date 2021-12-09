@@ -26,7 +26,6 @@ export default function ResultadosParaMegaSena(props){
             setDezena(res)
             
             concursoIguais(setApostasSelecionadas,retApostas,res.numero_concurso,setLoading)
-            console.log(res)
         }
         RetornoResultado(tipoJogo)       
     },[])

@@ -28,26 +28,16 @@ export default function Quina({navigation}){
 
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
-        const abortar=new AbortController()
-
-        if(abortar.signal){
+  
             percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-        }
-        
-        console.log("entrou na página alterei primeiro useEffect")
-        return ()=> abortar.abort()
                 
     },[])
 
     //useEffect toda vez qdo alterao valor da state numerosSorteados
     useEffect(()=>{
-        const abortar=new AbortController()
-        if(abortar.signal){
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-        }
 
-        console.log("percorre segundo alterei denovo useEffect")
-        return ()=> abortar.abort()      
+            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
+     
     },[numerosSorteados])
 
     return(

@@ -24,8 +24,6 @@ export default function ResultadosDuplaSena(props){
             const retApostas=await getAsync(tipoJogo)//obter minhas apostas
             const res=await ObterApi(tipoJogo) // obter resultado das apostas (fetch)
 
-            console.log(res)
-
             setDezena(res)
             
             concursoIguais(setApostasSelecionadas,retApostas,res.numero_concurso,setLoading)            

@@ -11,7 +11,7 @@ export default function Cabecalho(props){
             props.setAbort(true)
             props.setNumerosSorteados([])
             props.navigation.navigate("Home")
-        },1200)
+        },1500)
     }
 
     return(

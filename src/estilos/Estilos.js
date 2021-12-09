@@ -128,13 +128,21 @@ export default StyleSheet.create({
         padding:20
     },
     btnConcursosDupla:{
-        width:"20%",
+        width:"15%",
         padding:5,
         backgroundColor:"#844",
         borderRadius:5,
         alignItems:"center",
         justifyContent:"center",
         flexDirection:"row",
+    },
+    conteinerTxtNumSorteio:{
+        width:"70%",
+        justifyContent:"center",
+        alignItems:"center",
+    },
+    conteinerVazio:{
+        width:"15%",
     },
     btnChamadaApostas:{
         width:"100%",

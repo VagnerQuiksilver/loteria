@@ -30,19 +30,15 @@ export default function Lotofacil({navigation}){
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
          
-        if(!abort){
             percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-        }
-        console.log("entrou na página primeiro useEffect")     
+         
     },[])
 
     //useEffect toda vez qdo alterao valor da state numerosSorteados
     useEffect(()=>{
 
-        if(!abort){
             percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-        }
-        console.log("percorre segundo useEffect")     
+        
     },[numerosSorteados])
 
     return(

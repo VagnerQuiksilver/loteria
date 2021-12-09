@@ -29,17 +29,19 @@ export default function ModalResultadosDuplaSena2(props){
                 <View style={Estilos.conteinerResultado}>
 
                     <View style={{width:"100%",height:55,backgroundColor:props.cor,alignItems:"center",flexDirection:"row"}}>
-                    
+                        
                         <TouchableOpacity
                             style={Estilos.btnConcursosDupla}
                             onPress={()=>props.setModalResult2(false)}
                         >
                             <AntDesign name="arrowleft" size={24} color="#fff" />
-                            
                         </TouchableOpacity>
 
-                        <Text style={[Estilos.txtBtnConcursosDupla,{fontWeight:"bold",fontSize:24,color:"#fff"}]}>Sorteio 02</Text>
+                        <View style={Estilos.conteinerTxtNumSorteio}>                      
+                            <Text style={[Estilos.txtBtnConcursosDupla,{fontWeight:"bold",fontSize:28,color:"#fff"}]}>Sorteio 02</Text>
+                        </View>
 
+                        <View style={Estilos.conteinerVazio}></View>
                     </View>
 
                     {props.dezena.acumulou &&                      

@@ -180,12 +180,12 @@ export function RetDez(dezena,cor){
 }
 
 //função da página ResultadoDuplaSena (retorna as dezena2)
-/*export function RetDez2(dezena,cor){ 
+export function RetDez2(dezena,cor){ 
     if(dezena!=undefined){
         let dez2=dezena.map((e,c)=> <Text style={[Estilos.dezenas,{backgroundColor:cor}]} key={c}>{e}</Text>)
         return dez2
     }
-}*/
+}
 
 //função da página resultadosDuplaSena (retorna se os concursos são iguais)
 export function concursoIguais(setApostasSelecionadas,apo,numConc,setLoading){

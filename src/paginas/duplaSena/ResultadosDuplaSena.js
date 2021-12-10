@@ -47,29 +47,9 @@ export default function ResultadosDuplaSena(props){
     return(
         <SafeAreaView style={Estilos.safeArea}>
             <ModalSpinner loading={loading} cor={cor} jogo={tipoJogo} texto=" Carregando resultados "/>
-            <ModalResultadoDS1 
-                dezena={dezena}
-                tipoJogo={tipoJogo}
-                cor={cor}
-                RetDez={RetDez}
-                modalResult1={modalResult1}  
-                setModalResult1={setModalResult1}  
-                apostas={apostasSelecionadas}
-                setApostas={setApostasSelecionadas}   
-            />
 
-            <ModalResultadoDS2
-                dezena={dezena}
-                tipoJogo={tipoJogo}
-                cor={cor}
-                RetDez={RetDez}
-                modalResult2={modalResult2}  
-                setModalResult2={setModalResult2}  
-                apostas={apostasSelecionadas}
-                setApostas={setApostasSelecionadas}   
-            />
 
- 
+        {/*
             <View style={Estilos.conteinerBtnConcursosDupla}>
                 <TouchableOpacity 
                     style={Estilos.btnChamadaApostas}
@@ -101,7 +81,7 @@ export default function ResultadosDuplaSena(props){
                     <Text style={Estilos.txtBtnConcursosDupla}>Concurso {dezena.numero_concurso} sorteio 2</Text>
                 </TouchableOpacity>
             </View>       
-
+        */}
             <PropagandoAdmob/>
         </SafeAreaView>
     )

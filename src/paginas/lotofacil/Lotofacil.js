@@ -22,7 +22,7 @@ export default function Lotofacil({navigation}){
     const [numerosSorteados,setNumerosSorteados]=useState([])
     const [modalVisivel,setModalVisivel]=useState(false)
     const [loading,setLoading]=useState(true)
-    const [abort,setAbort]=useState(false)
+    const [verificar,setVerificar]=useState(false)
 
     const tipoJogo='lotofacil'
     const cor="#626"
@@ -30,15 +30,15 @@ export default function Lotofacil({navigation}){
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
          
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
+            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
          
     },[])
 
     //useEffect toda vez qdo alterao valor da state numerosSorteados
     useEffect(()=>{
-
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-        
+        if(verificar){
+            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+        }      
     },[numerosSorteados])
 
     return(
@@ -46,7 +46,7 @@ export default function Lotofacil({navigation}){
             <View style={Estilos.tela}>
                 <ModalSpinner loading={loading} cor={cor} jogo="lotofácil" texto="Bem Vindo ao simulador de jogos "/>
 
-                <Cabecalho cor={cor} navigation={navigation} texto="lotofácil" setAbort={setAbort} setNumerosSorteados={setNumerosSorteados}/>
+                <Cabecalho cor={cor} navigation={navigation} texto="lotofácil" setNumerosSorteados={setNumerosSorteados} setVerificar={setVerificar}/>
 
                 <TracosHor/>
 
@@ -84,7 +84,8 @@ export default function Lotofacil({navigation}){
                     qtdNumerosASortear={qtdNumerosASortear} 
                     setQtdNumerosASortear={setQtdNumerosASortear}
                     setNumerosSorteados={setNumerosSorteados}
-                    tipoJogo={tipoJogo}                
+                    tipoJogo={tipoJogo}  
+                    setVerificar={setVerificar}              
                 />               
             </View>
             
@@ -99,6 +100,7 @@ export default function Lotofacil({navigation}){
                 salvarAposta={salvarAposta}
                 numerosSorteados={numerosSorteados}
                 tipoJogo={tipoJogo}
+                setVerificar={setVerificar}
             />
         </SafeAreaView>
     )

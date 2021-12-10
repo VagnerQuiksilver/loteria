@@ -10,6 +10,7 @@ import QtdeSortear from '../../componentes/QtdeNumerosASortear'
 import BotaoApostar from '../../componentes/BotaoApostar'
 import PropagandoAdmob from '../../componentes/PropagandoAdmob'
 import ModalBtnApostar from '../../componentes/ModalBtnSalvarAposta'
+import { useIsFocused } from '@react-navigation/native';
 
 //import das funções
 import {quantidade,percorrerNumeros,sortear,cancelarAposta,salvarAposta} from '../../componentes/Funcoes'
@@ -18,26 +19,28 @@ export default function DuplaSena({navigation}){
 
     const [todosOsnumerosDoPainel,setTodosOsnumerosDoPainel]=useState([])
     const [qtdNumerosASortear,setQtdNumerosASortear]=useState(null)
-    const [numerosSorteados,setNumerosSorteados]=useState([])
+    const [numerosSorteados,setNumerosSorteados]=useState([])   
     const [modalVisivel,setModalVisivel]=useState(false)
     const [loading,setLoading]=useState(true)
-    const [abort,setAbort]=useState(false)
+    const [verificar,setVerificar]=useState(false)
 
     const tipoJogo='duplasena'
     const cor="#844"
 
+    const isFocused = useIsFocused();
+
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
-
-        percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-                
+        if(isFocused){
+            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+        }       
     },[])
 
     //useEffect toda vez qdo alterao valor da state numerosSorteados
     useEffect(()=>{
-
-        percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-     
+        if(verificar && isFocused){
+            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+        }          
     },[numerosSorteados])
   
 
@@ -46,7 +49,7 @@ export default function DuplaSena({navigation}){
             <View style={Estilos.tela}>
                 <ModalSpinner loading={loading} cor={cor} jogo="dupla-sena" texto="Bem Vindo ao simulador de jogos "/>
     
-                <Cabecalho cor={cor} navigation={navigation} texto="dupla sena" setAbort={setAbort} setNumerosSorteados={setNumerosSorteados}/>
+                <Cabecalho cor={cor} navigation={navigation} texto="dupla sena" setNumerosSorteados={setNumerosSorteados} setVerificar={setVerificar}/>
 
                 <TracosHor/>
 
@@ -96,7 +99,8 @@ export default function DuplaSena({navigation}){
                     qtdNumerosASortear={qtdNumerosASortear} 
                     setQtdNumerosASortear={setQtdNumerosASortear}
                     setNumerosSorteados={setNumerosSorteados}
-                    tipoJogo={tipoJogo}            
+                    tipoJogo={tipoJogo} 
+                    setVerificar={setVerificar}           
                 />
 
             </View>
@@ -112,6 +116,7 @@ export default function DuplaSena({navigation}){
                 salvarAposta={salvarAposta}
                 numerosSorteados={numerosSorteados}
                 tipoJogo={tipoJogo}
+                setVerificar={setVerificar}
             />
 
         </SafeAreaView>

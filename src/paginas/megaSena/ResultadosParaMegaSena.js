@@ -6,6 +6,7 @@ import PropagandoAdmob from '../../componentes/PropagandoAdmob'
 import ModalSpinner from '../../componentes/ModalSpinner'
 import Resultados from '../../componentes/Resultados'
 import Estilos from '../../estilos/Estilos'
+import { useIsFocused } from '@react-navigation/native';
 
 export default function ResultadosParaMegaSena(props){
 
@@ -17,18 +18,29 @@ export default function ResultadosParaMegaSena(props){
     let tipoJogo="megasena";
     let cor="#484"
     let intervalo=""
+
+    const isFocused = useIsFocused();
   
     useEffect(()=>{
+
+        const abortCont=new AbortController()
+        const signal=abortCont.signal
+
         async function RetornoResultado(tipoJogo){
+
             const retApostas=await getAsync(tipoJogo)//obter minhas apostas
-            const res=await ObterApi(tipoJogo) // obter resultado das apostas (fetch)
+            const res=await ObterApi(tipoJogo,signal) // obter resultado das apostas (fetch)
 
             setDezena(res)
             
-            concursoIguais(setApostasSelecionadas,retApostas,res.numero_concurso,setLoading)
+            concursoIguais(setApostasSelecionadas,retApostas,res.numero_concurso,setLoading)            
         }
-        RetornoResultado(tipoJogo)       
-    },[])
+        if(isFocused){
+            RetornoResultado(tipoJogo)
+        }else{
+            abortCont.abort()
+        }              
+    },[isFocused])
 
     //função de pisca acumulou
     if(dezena.acumulou){

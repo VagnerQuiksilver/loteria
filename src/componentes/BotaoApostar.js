@@ -7,7 +7,7 @@ export default function BotaoApostar(props){
             <TouchableOpacity  
                 style={[Estilos.btn,{backgroundColor:props.cor}]} 
                 onPress={()=>{
-                    props.sortear(props.tipoJogo,props.qtdNumerosASortear,props.setQtdNumerosASortear,props.setNumerosSorteados)
+                    props.sortear(props.tipoJogo,props.qtdNumerosASortear,props.setQtdNumerosASortear,props.setNumerosSorteados,props.setVerificar)
                 }}>
                 <Text style={Estilos.txtBtn}>Apostar</Text>
             </TouchableOpacity>

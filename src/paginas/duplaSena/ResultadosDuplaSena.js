@@ -7,6 +7,7 @@ import Estilos from '../../estilos/Estilos'
 import ModalResultadoDS1 from '../../componentes/ModalResultadosDuplaSena1'
 import ModalResultadoDS2 from '../../componentes/ModalResultadosDuplaSena2'
 import { Foundation,MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { useIsFocused } from '@react-navigation/native';
 
 export default function ResultadosDuplaSena(props){
 
@@ -16,20 +17,31 @@ export default function ResultadosDuplaSena(props){
     const [modalResult1,setModalResult1]=useState(false)
     const [modalResult2,setModalResult2]=useState(false)
 
+    const isFocused = useIsFocused();
+
     let tipoJogo="duplasena";
     let cor="#844"
   
     useEffect(()=>{
+
+        const abortCont=new AbortController()
+        const signal=abortCont.signal
+
         async function RetornoResultado(tipoJogo){
+
             const retApostas=await getAsync(tipoJogo)//obter minhas apostas
-            const res=await ObterApi(tipoJogo) // obter resultado das apostas (fetch)
+            const res=await ObterApi(tipoJogo,signal) // obter resultado das apostas (fetch)
 
             setDezena(res)
             
             concursoIguais(setApostasSelecionadas,retApostas,res.numero_concurso,setLoading)            
         }
-        RetornoResultado(tipoJogo)       
-    },[])
+        if(isFocused){
+            RetornoResultado(tipoJogo)
+        }else{
+            abortCont.abort()
+        }              
+    },[isFocused])
 
        
     return(

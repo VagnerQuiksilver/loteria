@@ -2,8 +2,6 @@ import React from 'react'
 import {View,Text,TouchableOpacity,Modal,StyleSheet} from 'react-native'
 
 export default function modal(props){
-
-
     
     return(
         <Modal
@@ -17,14 +15,14 @@ export default function modal(props){
                     <View style={Estilos.conteinerBtnsSalvarNaoSalvar}>
                         <TouchableOpacity 
                             style={[Estilos.btnSalvarNaoSalvar,{backgroundColor:"#080"}]}
-                            onPress={()=>{props.salvarAposta(props.tipoJogo,props.setNumerosSorteados,props.setModalVisivel,props.numerosSorteados)}}
+                            onPress={()=>{props.salvarAposta(props.tipoJogo,props.setNumerosSorteados,props.setModalVisivel,props.numerosSorteados,props.setVerificar)}}
                         >
                             <Text style={Estilos.txtBtnSalvarNaoSalvar}>Salvar</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={[Estilos.btnSalvarNaoSalvar,{backgroundColor:"#800"}]}
-                            onPress={()=>{props.cancelarAposta(props.setModalVisivel,props.setNumerosSorteados)}}
+                            onPress={()=>{props.cancelarAposta(props.setModalVisivel,props.setNumerosSorteados,props.setVerificar)}}
                         >
                             <Text style={Estilos.txtBtnSalvarNaoSalvar}>Cancelar Aposta</Text>
                         </TouchableOpacity>

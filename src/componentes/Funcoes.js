@@ -5,7 +5,7 @@ import Globais from '../globais/Globais'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //função retorna para o painel de numeros os numeros e os numeros sorteados
-export function percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort){  
+export function percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo){  
     let nmrs=[]  
     let exist=false; 
     let sortear
@@ -18,7 +18,7 @@ export function percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVi
     }else if(tipoJogo=='quina'){
         sortear=80
     }
-    if(!abort){
+    
         for(let i=0;i<sortear;i++){
             for(let ns=0;ns<numerosSorteados.length;ns++){
                 if(Globais.numerosDoPainel[i]==numerosSorteados[ns]){
@@ -49,15 +49,15 @@ export function percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVi
         if(setLoading){
             setTimeout(()=>{setLoading(false)},500) 
         }
-    }
-
-          
+           
 }
 
 //função que retorno o resultado da api
-export async function ObterApi(tipoJogo){
+export async function ObterApi(tipoJogo,signal){
+
+    console.log({signal})
     
-    const retApi= await fetch('https://apiloterias.com.br/app/resultado?loteria='+tipoJogo+'&token=sASYBV5xvE1R882')
+    const retApi= await fetch('https://apiloterias.com.br/app/resultado?loteria='+tipoJogo+'&token=sASYBV5xvE1R882',{signal})
     const resApi= await retApi.json()
 
     return resApi
@@ -70,10 +70,11 @@ export function quantidade(num,setQtdNumerosASortear,setNumerosSorteados){
 }
 
 //função sorteia os números
-export function sortear(tipoJogo,qtdNumerosASortear,setQtdNumerosASortear,setNumerosSorteados){
+export function sortear(tipoJogo,qtdNumerosASortear,setQtdNumerosASortear,setNumerosSorteados,setVerificar){
+    setVerificar(true)
     let numeroSorteado;
     let sorteados=[];
-    let verificaNumSorteado;
+    let verificaNumSorteado
     let tamanho
     if(tipoJogo=='duplasena'){
         tamanho=50
@@ -107,9 +108,11 @@ export function sortear(tipoJogo,qtdNumerosASortear,setQtdNumerosASortear,setNum
 }
 
 //função decha janela ModalBtnSalvarAposta
-export function cancelarAposta(setModalVisivel,setNumerosSorteados){
-    setModalVisivel(false)
+export function cancelarAposta(setModalVisivel,setNumerosSorteados,setVerificar){
     setNumerosSorteados([])
+    setModalVisivel(false)
+    
+    setTimeout(()=>{setVerificar(false)},1000)
 }
 
 //função q retorna os valores do AsyncStorage
@@ -122,7 +125,7 @@ export async function getAsync(chave){
 }
 
 //função q salva as apostas
-export async function salvarAposta(tipoJogo,setNumerosSorteados,setModalVisivel,numerosSorteados){
+export async function salvarAposta(tipoJogo,setNumerosSorteados,setModalVisivel,numerosSorteados,setVerificar){
     let id=0
     let retId=0
 
@@ -148,7 +151,9 @@ export async function salvarAposta(tipoJogo,setNumerosSorteados,setModalVisivel,
         await AsyncStorage.setItem(tipoJogo , JSON.stringify(resJson))
     }    
     setModalVisivel(false)
-    setNumerosSorteados([]) 
+    setNumerosSorteados([])
+    setVerificar(false)
+    
 }
 
 // função para exluir aposta

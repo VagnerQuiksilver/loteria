@@ -21,23 +21,23 @@ export default function MegaSena({navigation}){
     const [numerosSorteados,setNumerosSorteados]=useState([])
     const [modalVisivel,setModalVisivel]=useState(false)
     const [loading,setLoading]=useState(true)
-    const [abort,setAbort]=useState(false)
+    const [verificar,setVerificar]=useState(false)
 
     const tipoJogo='megasena'
     const cor="#484"
 
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
-        
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-
+         
+        percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+     
     },[])
 
     //useEffect toda vez qdo alterao valor da state numerosSorteados
     useEffect(()=>{
-
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-        
+        if(verificar){
+            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+        }      
     },[numerosSorteados])
 
     return(
@@ -45,7 +45,7 @@ export default function MegaSena({navigation}){
             <View style={Estilos.tela}>
                 <ModalSpinner loading={loading} cor={cor} jogo="mega-sena" texto="Bem Vindo ao simulador de jogos "/>
 
-                <Cabecalho cor={cor} navigation={navigation} texto="mega sena" setAbort={setAbort} setNumerosSorteados={setNumerosSorteados}/>
+                <Cabecalho cor={cor} navigation={navigation} texto="mega sena" setNumerosSorteados={setNumerosSorteados} setVerificar={setVerificar}/>
 
                 <TracosHor/>
 
@@ -95,7 +95,8 @@ export default function MegaSena({navigation}){
                     qtdNumerosASortear={qtdNumerosASortear} 
                     setQtdNumerosASortear={setQtdNumerosASortear}
                     setNumerosSorteados={setNumerosSorteados}
-                    tipoJogo={tipoJogo}                
+                    tipoJogo={tipoJogo}  
+                    setVerificar={setVerificar}              
                 />
             </View>
            
@@ -110,6 +111,7 @@ export default function MegaSena({navigation}){
                 salvarAposta={salvarAposta}
                 numerosSorteados={numerosSorteados}
                 tipoJogo={tipoJogo}
+                setVerificar={setVerificar}
             />
         </SafeAreaView>
     )

@@ -7,11 +7,9 @@ import { AntDesign } from '@expo/vector-icons';
 export default function Cabecalho(props){
 
     function voltarHome(){
-            setTimeout(()=>{
-            props.setAbort(true)
-            props.setNumerosSorteados([])
+           // props.setNumerosSorteados([])
+            props.setVerificar(false)
             props.navigation.navigate("Home")
-        },1500)
     }
 
     return(

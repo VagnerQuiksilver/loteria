@@ -1,19 +1,13 @@
 import React,{useState,useEffect} from  'react'
 import {View,SafeAreaView} from 'react-native'
-
 import { getAsync} from '../../componentes/Funcoes'
-
 import PropagandoAdmob from '../../componentes/PropagandoAdmob'
 import Estilos from '../../estilos/Estilos'
 import FlatMinhasApostas from '../../componentes/FlatMinhasApostas'
 import ModalSpinner from '../../componentes/ModalSpinner'
 
-import { useIsFocused } from '@react-navigation/native';
-
 
 export default function MinhasApostasQuina(){
-
-    const isFocused = useIsFocused();
 
     const [apostas,setApostas]=useState([])
     const [loading,setLoading]=useState(true)
@@ -37,7 +31,7 @@ export default function MinhasApostasQuina(){
             ativo=false
         }       
         
-    },[isFocused])
+    },[])
 
     return(
         <SafeAreaView style={Estilos.safeArea}>

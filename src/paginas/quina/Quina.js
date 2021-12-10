@@ -21,23 +21,23 @@ export default function Quina({navigation}){
     const [numerosSorteados,setNumerosSorteados]=useState([])
     const [modalVisivel,setModalVisivel]=useState(false)
     const [loading,setLoading]=useState(true)
-    const [abort,setAbort]=useState(false)
+    const [verificar,setVerificar]=useState(false)
 
     const tipoJogo='quina'
     const cor="#428"
 
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
-  
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-                
+         
+        percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+     
     },[])
 
     //useEffect toda vez qdo alterao valor da state numerosSorteados
     useEffect(()=>{
-
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,abort)
-     
+        if(verificar){
+            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+        }      
     },[numerosSorteados])
 
     return(
@@ -45,7 +45,7 @@ export default function Quina({navigation}){
             <View style={Estilos.tela}>
                 <ModalSpinner loading={loading} cor={cor} jogo="quina" texto="Bem Vindo ao simulador de jogos "/>
 
-                <Cabecalho cor={cor} navigation={navigation} texto="quina" setAbort={setAbort} setNumerosSorteados={setNumerosSorteados}/>
+                <Cabecalho cor={cor} navigation={navigation} texto="quina" setNumerosSorteados={setNumerosSorteados} setVerificar={setVerificar}/>
 
                 <TracosHor/>
 
@@ -98,13 +98,13 @@ export default function Quina({navigation}){
                     qtdNumerosASortear={qtdNumerosASortear} 
                     setQtdNumerosASortear={setQtdNumerosASortear}
                     setNumerosSorteados={setNumerosSorteados} 
-                    tipoJogo={tipoJogo}               
+                    tipoJogo={tipoJogo}    
+                    setVerificar={setVerificar}           
                 />
             </View>
             
                 <PropagandoAdmob/>
             
-
             <ModalBtnApostar 
                 modalVisivel={modalVisivel}
                 setModalVisivel={setModalVisivel}
@@ -113,6 +113,7 @@ export default function Quina({navigation}){
                 salvarAposta={salvarAposta}
                 numerosSorteados={numerosSorteados}
                 tipoJogo={tipoJogo}
+                setVerificar={setVerificar}
             />
         </SafeAreaView>
     )

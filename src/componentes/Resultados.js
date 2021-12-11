@@ -7,13 +7,13 @@ export default function Resultados(props){
     return(
         <>
                 <View style={Estilos.conteinerNumsDezenas}>
-                    <Text style={Estilos.txtSorteioConcurso}>Sorteio concurso: {props.dezena.numero_concurso} </Text>
+                    <Text style={Estilos.txtSorteioConcurso}>Sorteio {props.RetDez?"01":"02"} concurso: {props.dezena.numero_concurso} </Text>
                     <View style={Estilos.numeros}>
 
-                        {props.modalResult2?
-                            props.RetDez(props.dezena.dezenas_2,props.cor)
-                            :
+                        {props.RetDez?
                             props.RetDez(props.dezena.dezenas,props.cor)
+                            :
+                            props.RetDez2(props.dezena.dezenas_2,props.cor)
                         }
 
                     </View>

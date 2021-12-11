@@ -19,28 +19,52 @@ export default function ItemRenderizado(props){
 
     let resultado=[]
 
-    useEffect(()=>{
-        let iguais=true
+    props.sort2?
+        useEffect(()=>{
+            let iguais=true
 
-        if(props.dezena){
-            async function confereResultado(item,dezena,cor){                   
-                for(var n=0;n<item.num.length;n++){
-                    for(var r=0;r<dezena.dezenas.length;r++){
-                        if(item.num[n]==dezena.dezenas[r]){
-                            iguais=false
-                            resultado.push(<Text style={[Estilos.txtNumeros,{backgroundColor:cor,color:"#fff"}]} key={n}>{item.num[n]}</Text>)  
+            if(props.dezena){
+                async function confereResultado(item,dezena,cor){                   
+                    for(var n=0;n<item.num.length;n++){
+                        for(var r=0;r<dezena.dezenas_2.length;r++){
+                            if(item.num[n]==dezena.dezenas_2[r]){
+                                iguais=false
+                                resultado.push(<Text style={[Estilos.txtNumeros,{backgroundColor:cor,color:"#fff"}]} key={n}>{item.num[n]}</Text>)  
+                            }
                         }
-                    }
-                    if(iguais){
-                        resultado.push(<Text style={Estilos.txtNumeros} key={n}>{item.num[n]}</Text>)
-                    }
-                    iguais=true
-                }          
-                setRes(await resultado) 
+                        if(iguais){
+                            resultado.push(<Text style={Estilos.txtNumeros} key={n}>{item.num[n]}</Text>)
+                        }
+                        iguais=true
+                    }          
+                    setRes(await resultado) 
+                }
+                confereResultado(props.item,props.dezena,props.cor)
             }
-            confereResultado(props.item,props.dezena,props.cor)
-        }
-    },[])   
+        },[]) 
+        :
+        useEffect(()=>{
+            let iguais=true
+
+            if(props.dezena){
+                async function confereResultado(item,dezena,cor){                   
+                    for(var n=0;n<item.num.length;n++){
+                        for(var r=0;r<dezena.dezenas.length;r++){
+                            if(item.num[n]==dezena.dezenas[r]){
+                                iguais=false
+                                resultado.push(<Text style={[Estilos.txtNumeros,{backgroundColor:cor,color:"#fff"}]} key={n}>{item.num[n]}</Text>)  
+                            }
+                        }
+                        if(iguais){
+                            resultado.push(<Text style={Estilos.txtNumeros} key={n}>{item.num[n]}</Text>)
+                        }
+                        iguais=true
+                    }          
+                    setRes(await resultado) 
+                }
+                confereResultado(props.item,props.dezena,props.cor)
+            }
+        },[])   
 
 
     return(

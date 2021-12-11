@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {View,SafeAreaView,TouchableOpacity,Text} from 'react-native';
+import {View,SafeAreaView,Text} from 'react-native';
 import {ObterApi, RetDez, getAsync, concursoIguais} from '../../componentes/Funcoes'
 import FlatMinhasApostas from '../../componentes/FlatMinhasApostas'
 import PropagandoAdmob from '../../componentes/PropagandoAdmob'

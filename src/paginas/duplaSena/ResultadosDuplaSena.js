@@ -1,12 +1,11 @@
 import React,{useState,useEffect} from 'react';
-import {View,SafeAreaView, TouchableOpacity,Text} from 'react-native';
-import {ObterApi, RetDez, getAsync, concursoIguais} from '../../componentes/Funcoes'
+import {View,SafeAreaView,Text,ScrollView,Dimensions} from 'react-native';
+import {ObterApi, RetDez, RetDez2, getAsync, concursoIguais} from '../../componentes/Funcoes'
+import FlatMinhasApostas from '../../componentes/FlatMinhasApostas'
 import PropagandoAdmob from '../../componentes/PropagandoAdmob'
 import ModalSpinner from '../../componentes/ModalSpinner'
+import Resultados from '../../componentes/Resultados'
 import Estilos from '../../estilos/Estilos'
-import ModalResultadoDS1 from '../../componentes/ModalResultadosDuplaSena1'
-import ModalResultadoDS2 from '../../componentes/ModalResultadosDuplaSena2'
-import { Foundation,MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useIsFocused } from '@react-navigation/native';
 
 export default function ResultadosDuplaSena(props){
@@ -14,13 +13,16 @@ export default function ResultadosDuplaSena(props){
     const [dezena,setDezena]=useState([])
     const [apostasSelecionadas,setApostasSelecionadas]=useState([])
     const [loading,setLoading]=useState(true)
-    const [modalResult1,setModalResult1]=useState(false)
-    const [modalResult2,setModalResult2]=useState(false)
+    const [acumulado,setAcumulado]=useState("#0f0")
 
-    const isFocused = useIsFocused();
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
 
     let tipoJogo="duplasena";
     let cor="#844"
+    let intervalo=""
+    
+    const isFocused = useIsFocused();
   
     useEffect(()=>{
 
@@ -43,46 +45,77 @@ export default function ResultadosDuplaSena(props){
         }              
     },[isFocused])
 
+    if(dezena.acumulou){
+        intervalo=setInterval(()=>{
+            acumulado==="#844"?setAcumulado("#0f0"):setAcumulado("#844")    
+            clearInterval(intervalo) 
+        },500)
+    }
        
     return(
         <SafeAreaView style={Estilos.safeArea}>
             <ModalSpinner loading={loading} cor={cor} jogo={tipoJogo} texto=" Carregando resultados "/>
+            <ScrollView
+                 style={Estilos.conteinerScroll}
+                 pagingEnabled={true}
+             >
 
+            <View style={{width:windowWidth,height:windowHeight-60}}>
+                
+                <View style={[Estilos.conteinerResultado,props.tipoJogo==="duplasena"&&{height:"27%",borderWidth:1}]}>
+                    {dezena.acumulou &&                      
+                        (<View style={[Estilos.conteinerTxtConsursoAcumulado,{backgroundColor:cor}]}>
+                            <Text style={[Estilos.txtConcursoAcumulado,{color:acumulado}]}>ACUMULOU !!!</Text>                           
+                        </View>)
+                    }    
 
-        {/*
-            <View style={Estilos.conteinerBtnConcursosDupla}>
-                <TouchableOpacity 
-                    style={Estilos.btnChamadaApostas}
-                    onPress={()=>setModalResult1(true)}
-                >
-                    <View style={Estilos.conteinerIcons}>
-                        <View style={Estilos.icons}>
-                            <MaterialCommunityIcons name="clover" size={35} color="#fff" />
-                        </View>
-                        <View style={Estilos.icons}>
-                            <Foundation name="dollar" size={25} color="#844" />
-                        </View>
-                    </View>
-                    <Text style={Estilos.txtBtnConcursosDupla}>Concurso {dezena.numero_concurso} sorteio 1</Text>
-                </TouchableOpacity>
+                    {dezena!="" &&
+                        <Resultados 
+                            tipoJogo={tipoJogo}
+                            dezena={dezena}
+                            cor={cor}
+                            RetDez={RetDez}
+                        />
+                    }
+                </View>
+                {
+                    apostasSelecionadas &&
+                    <View style={[Estilos.conteinerFlatResultados,{height:"55%",alignItems:"center"}]}>
+                        <FlatMinhasApostas apostas={apostasSelecionadas} setApostas={setApostasSelecionadas} jogo={tipoJogo} cor={cor} dezena={dezena}/>
+                    </View>                                        
+                }
+                <PropagandoAdmob/>
+            </View>
 
-                <TouchableOpacity 
-                    style={Estilos.btnChamadaApostas}
-                    onPress={()=>setModalResult2(true)}
-                >
-                    <View style={Estilos.conteinerIcons}>
-                        <View style={Estilos.icons}>
-                            <MaterialCommunityIcons name="clover" size={35} color="#fff" />
-                        </View>
-                        <View style={Estilos.icons}>
-                            <Foundation name="dollar" size={25} color="#844" />
-                        </View>
-                    </View>
-                    <Text style={Estilos.txtBtnConcursosDupla}>Concurso {dezena.numero_concurso} sorteio 2</Text>
-                </TouchableOpacity>
-            </View>       
-        */}
-            <PropagandoAdmob/>
+            <View style={{width:windowWidth,height:windowHeight-50}}>
+                
+                <View style={[Estilos.conteinerResultado,props.tipoJogo==="duplasena"&&{height:"27%",borderWidth:1}]}>
+                    {dezena.acumulou &&                      
+                        (<View style={[Estilos.conteinerTxtConsursoAcumulado,{backgroundColor:cor}]}>
+                            <Text style={[Estilos.txtConcursoAcumulado,{color:acumulado}]}>ACUMULOU !!!</Text>                           
+                        </View>)
+                    }    
+
+                    {dezena!="" &&
+                        <Resultados 
+                            tipoJogo={tipoJogo}
+                            dezena={dezena}
+                            cor={cor}
+                            RetDez2={RetDez2}
+                        />
+                    }
+                </View>
+                {
+                    apostasSelecionadas &&
+                    <View style={[Estilos.conteinerFlatResultados,{height:"55%",alignItems:"center"}]}>
+                        <FlatMinhasApostas apostas={apostasSelecionadas} setApostas={setApostasSelecionadas} jogo={tipoJogo} cor={cor} dezena={dezena} sort2="sort2"/>
+                    </View>                                        
+                }
+                <PropagandoAdmob/>
+            </View>
+          
+            </ScrollView>
+            
         </SafeAreaView>
     )
 }

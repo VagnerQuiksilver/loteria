@@ -9,6 +9,26 @@ export default function FlatMinhasApostas(props){
             {props.apostas?
                 props.dezena?
                     props.apostas.length>0?
+                        props.sort2 ?
+                            <FlatList
+                            data={props.apostas}
+                            showsVerticalScrollIndicator={false}
+                            keyExtractor={(item)=>String(item.id)}
+                            renderItem={({item})=> <ItemRenderizado 
+                                item={item} 
+                                jogo={props.jogo} 
+                                cor={props.cor} 
+                                setApostas={props.setApostas} 
+                                apostas={props.apostas}
+                                dezena={props.dezena}
+                                sort2={props.sort2}
+                                />
+                            }
+                            horizontal={true}
+                            pagingEnabled={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                        :
                         <FlatList
                             data={props.apostas}
                             showsVerticalScrollIndicator={false}
@@ -20,6 +40,7 @@ export default function FlatMinhasApostas(props){
                                 setApostas={props.setApostas} 
                                 apostas={props.apostas}
                                 dezena={props.dezena}
+                                
                                 />
                             }
                             horizontal={true}

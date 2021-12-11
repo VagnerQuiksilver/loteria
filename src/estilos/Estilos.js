@@ -196,5 +196,9 @@ export default StyleSheet.create({
         height:"100%",
         flexDirection:"row",
     },
+    conteinerScroll:{
+        width:"100%",
+        height:"100%",
+    }
 
 })

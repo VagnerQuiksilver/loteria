@@ -6,32 +6,37 @@ import Estilos from '../../estilos/Estilos'
 import FlatMinhasApostas from '../../componentes/FlatMinhasApostas'
 import ModalSpinner from '../../componentes/ModalSpinner'
 
+import { useIsFocused } from '@react-navigation/native';
 
 export default function MinhasApostasQuina(){
 
     const [apostas,setApostas]=useState([])
     const [loading,setLoading]=useState(true)
 
+    const isFocused = useIsFocused();
+
     let jogo='duplasena'
     let cor="#844"
 
     useEffect(()=>{
-        let ativo=true;
+        let isActive=true;
+        let abortCont=new AbortController()
+
         const chamarGetAsync=async ()=>{
-           const result=await getAsync(jogo)
-            if(ativo){
-                setApostas(result)
-            }
-           setTimeout(()=>{setLoading(false)},500)
+           const result=await getAsync(jogo, isActive)            
+           setApostas(result)
+            
+           setLoading(false)
         }
-        if(ativo){
-            chamarGetAsync()
-        }
+        
+        chamarGetAsync()
+        
         return ()=>{
-            ativo=false
+            isActive=false
+            abortCont.abort()
         }       
         
-    },[])
+    },[isFocused])
 
     return(
         <SafeAreaView style={Estilos.safeArea}>

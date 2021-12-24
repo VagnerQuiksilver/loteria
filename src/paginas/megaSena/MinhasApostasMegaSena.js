@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from  'react'
 import {View,SafeAreaView} from 'react-native'
-
 import { getAsync} from '../../componentes/Funcoes'
-
 import PropagandoAdmob from '../../componentes/PropagandoAdmob'
 import Estilos from '../../estilos/Estilos'
 import FlatMinhasApostas from '../../componentes/FlatMinhasApostas'
@@ -10,31 +8,33 @@ import ModalSpinner from '../../componentes/ModalSpinner'
 
 import { useIsFocused } from '@react-navigation/native';
 
-
-export default function MinhasApostasQuina(){
-
-    const isFocused = useIsFocused();
+export default function MinhasApostasMegaSena(){
 
     const [apostas,setApostas]=useState([])
     const [loading,setLoading]=useState(true)
 
+    const isFocused = useIsFocused();
+
     let jogo='megasena'
     let cor="#484"
 
+
     useEffect(()=>{
-        let ativo=true;
+        let isActive=true;
+        let abortCont=new AbortController()
+
         const chamarGetAsync=async ()=>{
-           const result=await getAsync(jogo)
-            if(ativo){
-                setApostas(result)
-            }
-           setTimeout(()=>{setLoading(false)},500)
+           const result=await getAsync(jogo, isActive)            
+           setApostas(result)
+            
+           setLoading(false)
         }
-        if(ativo){
-            chamarGetAsync()
-        }
+        
+        chamarGetAsync()
+        
         return ()=>{
-            ativo=false
+            isActive=false
+            abortCont.abort()
         }       
         
     },[isFocused])

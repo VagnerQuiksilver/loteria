@@ -22,32 +22,35 @@ export default function ResultadosParaMegaSena(props){
     const isFocused = useIsFocused();
   
     useEffect(()=>{
-
+        let isActive=true
         const abortCont=new AbortController()
-        const signal=abortCont.signal
-
+        
         async function RetornoResultado(tipoJogo){
-
-            const retApostas=await getAsync(tipoJogo)//obter minhas apostas
-            const res=await ObterApi(tipoJogo,signal) // obter resultado das apostas (fetch)
-
-            setDezena(res)
+            if(isActive){
+                const retApostas=await getAsync(tipoJogo)//obter minhas apostas
+                const res=await ObterApi(tipoJogo, isActive) // obter resultado das apostas (fetch)
             
-            concursoIguais(setApostasSelecionadas,retApostas,res.numero_concurso,setLoading)            
+                setDezena(res)           
+                      
+            concursoIguais(setApostasSelecionadas,retApostas,res.numero_concurso,setLoading,isActive) 
+            }           
         }
-        if(isFocused){
-            RetornoResultado(tipoJogo)
-        }else{
+    
+        RetornoResultado(tipoJogo)
+           
+        return ()=>{
+            isActive=false
             abortCont.abort()
-        }              
-    },[isFocused])
+        }
+    },[])
 
-    //função de pisca acumulou
-    if(dezena.acumulou){
-        intervalo=setInterval(()=>{
-            acumulado==="#484"?setAcumulado("#0f0"):setAcumulado("#484")    
-            clearInterval(intervalo) 
-        },500)
+    if(isFocused){
+        if(dezena.acumulou){
+            let intervalo=setInterval(()=>{
+                acumulado==="#484"?setAcumulado("#0f0"):setAcumulado("#484")    
+                clearInterval(intervalo) 
+            },500)
+        }
     }
 
     return(

@@ -31,8 +31,12 @@ export default function DuplaSena({navigation}){
 
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
-        if(isFocused){
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
+        let isActive=true
+        
+        percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar,isActive)
+
+        return ()=>{
+            isActive=false
         }       
     },[])
 
@@ -42,7 +46,6 @@ export default function DuplaSena({navigation}){
             percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
         }          
     },[numerosSorteados])
-  
 
     return(
         <SafeAreaView style={Estilos.safeArea}>

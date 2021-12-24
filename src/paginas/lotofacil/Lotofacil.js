@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {View,Text,SafeAreaView} from 'react-native'
 
-
 import Estilos from '../../estilos/Estilos'
 import ModalSpinner from '../../componentes/ModalSpinner'
 import Cabecalho from '../../componentes/Cabecalho'
@@ -11,6 +10,7 @@ import QtdeSortear from '../../componentes/QtdeNumerosASortear'
 import BotaoApostar from '../../componentes/BotaoApostar'
 import PropagandoAdmob from '../../componentes/PropagandoAdmob'
 import ModalBtnApostar from '../../componentes/ModalBtnSalvarAposta'
+import { useIsFocused } from '@react-navigation/native';
 
 //import das funções
 import {quantidade,percorrerNumeros,sortear,cancelarAposta,salvarAposta} from '../../componentes/Funcoes'
@@ -27,18 +27,24 @@ export default function Lotofacil({navigation}){
     const tipoJogo='lotofacil'
     const cor="#626"
 
+    const isFocused = useIsFocused();
+    
     //UseEffect inicial chama a função q percorre e retorna os números para o painel
     useEffect(()=>{ 
-         
-            percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
-         
+        let isActive=true
+        
+        percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar,isActive)
+
+        return ()=>{
+            isActive=false
+        }       
     },[])
 
     //useEffect toda vez qdo alterao valor da state numerosSorteados
     useEffect(()=>{
-        if(verificar){
+        if(verificar && isFocused){
             percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,setVerificar)
-        }      
+        }          
     },[numerosSorteados])
 
     return(

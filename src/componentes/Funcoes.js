@@ -5,7 +5,7 @@ import Globais from '../globais/Globais'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //função retorna para o painel de numeros os numeros e os numeros sorteados
-export function percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo){  
+export function percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVisivel,numerosSorteados,tipoJogo,isActive){  
     let nmrs=[]  
     let exist=false; 
     let sortear
@@ -42,25 +42,28 @@ export function percorrerNumeros(setLoading,setTodosOsnumerosDoPainel,setModalVi
             }              
             exist=false;
         }
-        setTodosOsnumerosDoPainel(nmrs)   
-        if(numerosSorteados!=""){
-            setModalVisivel(true)
-        }  
-        if(setLoading){
-            setTimeout(()=>{setLoading(false)},500) 
+
+        if(isActive){
+            setTodosOsnumerosDoPainel(nmrs)   
+            if(numerosSorteados!=""){
+                setModalVisivel(true)
+            }  
+            if(setLoading){
+                setTimeout(()=>{setLoading(false)},500) 
+            } 
         }
-           
+         
 }
 
 //função que retorno o resultado da api
-export async function ObterApi(tipoJogo,signal){
-
-    console.log({signal})
+export async function ObterApi(tipoJogo,isActive){
     
-    const retApi= await fetch('https://apiloterias.com.br/app/resultado?loteria='+tipoJogo+'&token=sASYBV5xvE1R882',{signal})
+    const retApi= await fetch('https://apiloterias.com.br/app/resultado?loteria='+tipoJogo+'&token=sASYBV5xvE1R882')
     const resApi= await retApi.json()
-
-    return resApi
+    if(isActive){
+        return resApi
+    }
+    
 }
 
 //função que seleciona a qtde de numeros a sortear e limpa os numeros marcados do painel
@@ -119,7 +122,7 @@ export function cancelarAposta(setModalVisivel,setNumerosSorteados,setVerificar)
 export async function getAsync(chave){
     
     const retornoAsync=await AsyncStorage.getItem(chave)
-    let retJson=JSON.parse(retornoAsync) || []
+    let retJson=await JSON.parse(retornoAsync) || []
 
     return retJson
 }
@@ -188,7 +191,7 @@ export function RetDez2(dezena,cor){
 }
 
 //função da página resultadosDuplaSena (retorna se os concursos são iguais)
-export function concursoIguais(setApostasSelecionadas,apo,numConc,setLoading){
+export function concursoIguais(setApostasSelecionadas,apo,numConc,setLoading,isActive){
     let selecionados=[]
     if(apo){
         selecionados=apo.filter((e)=>{
@@ -197,11 +200,13 @@ export function concursoIguais(setApostasSelecionadas,apo,numConc,setLoading){
             }
         })
     }
-    if(selecionados){
-        setApostasSelecionadas(selecionados)
+    if(isActive){
+        if(selecionados){
+            setApostasSelecionadas(selecionados)
+        }
+        setLoading(false)
     }
-    //setTimeout(()=>{setLoading(false)},500)
-    setLoading(false)
+
 }
 
 
